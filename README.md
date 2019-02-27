@@ -9,7 +9,7 @@ npm install
 
 ### 编译开发环境代码，开启热替换服务器
 ```
-npm run serve
+npm start
 ```
 
 ### 编译正式环境代码
