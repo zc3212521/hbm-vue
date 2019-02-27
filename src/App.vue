@@ -1,17 +1,9 @@
 <template>
   <a-locale-provider :locale="zh_CN">
     <div id="app">
-      <img src="~@img/logo.jpg">
-      <div>
-        <p>
-          If Ant-Design-Vue is successfully added to this project, you'll see an
-          <code v-text="'<a-button>'"></code>
-          <code v-text="'<a-pagination>'"></code>
-          below
-        </p>
-        <a-button type="primary">Primary</a-button>
-        <a-pagination size="small" :total="50" showSizeChanger showQuickJumper />
-      </div>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+      <router-view/>
     </div>
   </a-locale-provider>
 </template>
@@ -36,6 +28,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
