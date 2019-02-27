@@ -3,18 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit",
-    "mock": "vue-cli-service serve --mode mock"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
+    "lint": "vue-cli-service lint",
+    "mock": "vue-cli-service serve --mode mock",
+    "start": "vue-cli-service serve"
   },
   "dependencies": {
+    "ant-design-vue": "^1.2.4",
     "axios": "^0.18.0",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",
@@ -29,6 +25,7 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-import": "^1.11.0",
     "chai": "^4.1.2",
     "compression-webpack-plugin": "^2.0.0",
     "eslint": "^5.8.0",
@@ -38,6 +35,12 @@
     "less-loader": "^4.1.0",
     "lint-staged": "^8.1.4",
     "mockjs": "^1.0.1-beta3",
+    "vue-cli-plugin-ant-design": "^1.0.0",
     "vue-template-compiler": "^2.5.21"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
