@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Home = () => import(/* webpackChunkName: "home" */ './pages/home/Home.vue')
-const Login = () => import(/* webpackChunkName: "about" */ './pages/login/Login.vue')
-const Main = () => import(/* webpackChunkName: "main" */ './pages/home/main/Main.vue')
+const LayoutDefault = () => import(/* webpackChunkName: "home" */ './pages/layoutDefault')
+const Login = () => import(/* webpackChunkName: "about" */ './pages/login')
+const Home = () => import(/* webpackChunkName: "main" */ './pages/layoutDefault/home')
 
 Vue.use(Router)
 
@@ -14,12 +14,13 @@ export default new Router({
     {
       path: '/',
       name: 'layoutDefault',
-      component: Home,
+      redirect: '/home',
+      component: LayoutDefault,
       children: [
         {
-          path: 'main',
-          name: 'main',
-          component: Main
+          path: 'home',
+          name: 'home',
+          component: Home
         }
       ]
     },

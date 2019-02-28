@@ -55,6 +55,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  #components-layout-demo-custom-trigger {
+    height: 100%;
+  }
+
   #components-layout-demo-custom-trigger .trigger {
     font-size: 18px;
     line-height: 64px;
