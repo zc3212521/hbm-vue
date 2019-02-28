@@ -1,0 +1,5 @@
+const mutations = {}
+
+export {
+  mutations
+}

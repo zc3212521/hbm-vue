@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { getTestData } from '@/http/moduleA.js'
+// import { getTestData } from '@/http/moduleA.js'
 
 export default {
   name: 'myOwn',
@@ -19,10 +19,10 @@ export default {
     }
   },
   mounted () {
-    getTestData().then(res => {
-      this.git_url = res.data.git_url
-      this.name = res.data.name
-    })
+    // getTestData().then(res => {
+    //   this.git_url = res.data.git_url
+    //   this.name = res.data.name
+    // })
   }
 }
 </script>

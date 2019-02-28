@@ -1,0 +1,7 @@
+const getToken = () => {
+
+}
+
+export {
+  getToken
+}
