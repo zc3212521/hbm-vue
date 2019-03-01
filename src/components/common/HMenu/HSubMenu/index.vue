@@ -1,18 +1,16 @@
 <template>
-  <span v-if="menuData.length">
-    <a-menu-item v-for="(item, index) in menuData" :key="index">
-      <template v-if="item.children && item.children.length">
-        <a-sub-menu>
-          <a-icon :type="item.icon" />
-          <span>{{item.name}}</span>
-          <h-sub-menu :menuData="item.children"></h-sub-menu>
-        </a-sub-menu>
-      </template>
-      <template v-else>
-        <a-icon :type="item.icon" />
+  <span>
+    <template v-for="item in menuData">
+      <a-sub-menu v-if="item.children && item.children.length" :key="item.id">
+          <span slot="title">
+            <span>{{item.name}}</span>
+          </span>
+        <h-sub-menu :menuData="item.children"></h-sub-menu>
+      </a-sub-menu>
+      <a-menu-item :key="item.id" v-else>
         <span>{{item.name}}</span>
-      </template>
-    </a-menu-item>
+      </a-menu-item>
+    </template>
   </span>
 </template>
 
