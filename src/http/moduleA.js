@@ -1,7 +1,7 @@
-import axios from '@/base/axios'
+import http from '@/base/axios'
 import $api from './api'
 
 // 获取测试数据
 export const getTestData = () => {
-  return axios.get($api.queryTestApi)
+  return http.get($api.queryTestApi)
 }

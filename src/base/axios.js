@@ -1,25 +1,44 @@
 import axios from 'axios'
-import { baseUrl } from '@/baseConfig'
+import baseConfig from '@/baseConfig'
+import qs from 'qs'
 // import store from '@/store'
-import { getToken } from '@utils/auth'
+// import { getToken } from '@/utils/auth'
+// import { sliceInArr } from '@/utils'
 
-let baseURL
+const URLObj = baseConfig.baseURL
+let baseURL = URLObj.dev
 if (process.env.NODE_ENV === 'production') {
-  baseURL = baseUrl.prod
-} else {
-  baseURL = baseUrl.dev
+  baseURL = URLObj.prod
+}
+if (process.env.NODE_ENV === 'yapi') {
+  baseURL = URLObj.yapi
 }
 
 export { baseURL }
 
 axios.defaults.baseURL = baseURL
 axios.defaults.withCredentials = false
-axios.defaults.headers['Content-Type'] = 'application/json'
+axios.defaults.timeout = 5000
+// axios.defaults.headers['Content-Type'] = 'application/json'
+axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+// axios.defaults.headers['X-Forwarded-For'] = '192.168.8.36:8080'
 
-axios.interceptors.request.use(function (response) {
-  // Do something with response data
-  response.headers['HG-Token'] = getToken()
-  return response
+axios.interceptors.request.use(function (request) {
+  // format request.data
+  if ((request.method === 'post' && request.url.indexOf('uploadfile') < 0) || request.method === 'put' || request.method === 'patch') { // post,put请求预处理
+    // request.headers['Content-Type'] = 'application/json'
+    request.data = qs.stringify(request.data)
+  }
+  // 请求添加sessionid
+  // if (!sliceInArr(baseConfig.queryWhiteList, request.url)) {
+  //   let token = getToken()
+  //   if (!token) {
+  //     window.vm.$router.push({ name: 'login' })
+  //     return
+  //   }
+  //   request.headers['sessionId'] = token
+  // }
+  return request
 }, function (error) {
   // Do something with response error
   console.log('got ajax error', error)
@@ -27,39 +46,11 @@ axios.interceptors.request.use(function (response) {
 })
 
 // respone拦截器
-axios.interceptors.response.use(
-  response => response,
-  /**
-   * 下面的注释为通过response自定义code来标示请求状态，当code返回如下情况为权限有问题，登出并返回到登录页
-   * 如通过xmlhttprequest 状态码标识 逻辑可写在下面error中
-   */
-  //  const res = response.data;
-  //     if (res.code !== 20000) {
-  //       Message({
-  //         message: res.message,
-  //         type: 'error',
-  //         duration: 5 * 1000
-  //       });
-  //       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
-  //       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-  //         MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
-  //           confirmButtonText: '重新登录',
-  //           cancelButtonText: '取消',
-  //           type: 'warning'
-  //         }).then(() => {
-  //           store.dispatch('FedLogOut').then(() => {
-  //             location.reload();// 为了重新实例化vue-router对象 避免bug
-  //           });
-  //         })
-  //       }
-  //       return Promise.reject('error');
-  //     } else {
-  //       return response.data;
-  //     }
-  error => {
-    console.log('err' + error)// for debug
-    this.$message.info('wrong')
-    return Promise.reject(error)
-  })
+axios.interceptors.response.use(function (response) {
+  // Do something with response data
+  return response
+}, function (error) {
+  console.log('error', error)
+})
 
 export default axios
